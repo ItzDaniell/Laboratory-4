@@ -16,7 +16,7 @@ def register(request):
     else:
         form = LibraryUserCreationForm()
 
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 
 @login_required
