@@ -35,3 +35,21 @@ class BookCopy(models.Model):
     def __str__(self):
         return f"Copy {self.inventory_number} of {self.book.title}"
 
+class BookLoan(models.Model):
+    """Model for book borrowing records"""
+    copy = models.ForeignKey(BookCopy, on_delete=models.CASCADE, related_name='loans')
+    checkout_date = models.DateField()
+    due_date = models.DateField()
+    return_date = models.DateField(null=True, blank=True)
+
+    STATUS_CHOICE = [
+        ('active', 'Active 📚'),
+        ('returned', 'Returned ✅'),
+        ('overdue', 'Overdue ⚠️'),
+        ('lost', 'Lost ❌'),
+    ]
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='active')
+
+    def __str__(self):
+        return f"{self.copy.book.title} borrowed by {self.borrower.username}"
