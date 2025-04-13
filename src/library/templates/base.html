@@ -33,6 +33,11 @@
                             <i class="bi bi-tag"></i> Categories
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'all_reading_list' %}">
+                            <i class="bi bi-journal-richtext"></i> Reading Lists
+                        </a>
+                    </li>
                     {% if user.is_authenticated and user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/">
