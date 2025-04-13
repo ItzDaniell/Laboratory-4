@@ -53,3 +53,19 @@ class BookLoan(models.Model):
 
     def __str__(self):
         return f"{self.copy.book.title} borrowed by {self.borrower.username}"
+
+class Reservation(models.Model):
+    """Model for book reservations"""
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reservations')
+    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='reservations')
+    branch = models.ForeignKey(LibraryBranch, on_delete=models.CASCADE, related_name='reservations')
+    request_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=[
+        ('pending', 'Pending ⏳'),
+        ('ready', 'Ready for Pickup ✅'),
+        ('fulfilled', 'Fulfilled 📚'),
+        ('cancelled', 'Cancelled ❌'),
+    ], default='pending')
+    
+    def __str__(self):
+        return f"Reservation of {self.book.title} by {self.user.username}"
