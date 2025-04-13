@@ -19,3 +19,17 @@ class ReadingList(models.Model):
     
     def __str__(self):
         return f"{self.name} by {self.user.username}"
+    
+class BookReview(models.Model):
+    """Model for book reviews by users"""
+    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='reviews')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveSmallIntegerField(choices=[(i, i) for i in range(1, 6)])
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ('user', 'book')
+    
+    def __str__(self):
+        return f"Review of {self.book.title} by {self.user.username}"
