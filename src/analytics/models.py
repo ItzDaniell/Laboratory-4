@@ -32,3 +32,14 @@ class AuthorAnalytics(models.Model):
     
     def __str__(self):
         return f"Analytics for {self.author.name}"
+
+class RecommendationLog(models.Model):
+    """Model to log book recommendations"""
+    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='recommendations')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    reason = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    clicked = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"Recommendation of {self.book.title} to {self.user.username}"
