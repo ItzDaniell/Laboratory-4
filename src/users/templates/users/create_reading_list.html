@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Library App - Crear Lista{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">📖 Crear una Nueva Lista de Lectura</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">✅ Crear Lista</button>
+        <a href="{% url 'all_reading_list' %}" class="btn btn-secondary ml-2">← Volver</a>
+    </form>
+</div>
+{% endblock %}

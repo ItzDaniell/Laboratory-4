@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Library App - Listas de Lectura Públicas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📚 Listas de Lectura Públicas</h2>
+        <a href="{% url 'create_reading_list' %}" class="btn btn-primary">
+            Nueva Lista
+        </a>
+    </div>
+
+    {% if reading_lists %}
+        <div class="list-group">
+            {% for lista in reading_lists %}
+                <div class="list-group-item mb-3">
+                    <h5>{{ lista.name }} <small class="text-muted">por {{ lista.user.username }}</small></h5>
+                    <p>{{ lista.description }}</p>
+                    <strong>Libros:</strong>
+                    <ul>
+                        {% for libro in lista.books.all %}
+                            <li>{{ libro.title }}</li>
+                        {% empty %}
+                            <li>No hay libros en esta lista.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay listas de lectura públicas disponibles.</p>
+    {% endif %}
+</div>
+{% endblock %}
