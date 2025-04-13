@@ -69,3 +69,8 @@ def category_detail(request, slug):
     # Get all books in this category 📚
     books = category.books.all().select_related('author')
     return render(request, 'library/category_detail.html', {'category': category, 'books': books})
+
+def book_detail(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    categories = book.categories.all()  # Asumiendo que tienes una relación de muchos a muchos con categorías
+    return render(request, 'library/book_detail.html', {'book': book, 'categories': categories})
