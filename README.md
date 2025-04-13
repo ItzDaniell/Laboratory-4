@@ -1,4 +1,4 @@
-# 💻 My Django Project
+# 💻 My Library Project
 A modern Django web application with a clean, organized structure.
 
 ## 📃 Overview
@@ -6,7 +6,9 @@ A modern Django web application with a clean, organized structure.
 This project follows a custom structure:
 - `src/`: Main code directory
   - `config/`: Project configuration
-  - `core/`: Main application
+  - `library/`: Main application
+  - `user/`: Users application
+  - `analytics/`: Analytics application
 - `venv/`: Virtual environment (not tracked in git)
 
 ## 🔍 Prior Requirements
@@ -41,6 +43,11 @@ Follow these steps to create a project using Django:
     python manage.py migrate
     ```
 
+4.  **Populate data**
+    ```bash
+    python manage.py populate_db
+    ```
+    
 5.  **Create a superuser**
 
     ```bash
@@ -56,10 +63,10 @@ Follow these steps to create a project using Django:
 Access the site at `http://127.0.0.1:8000/` and admin at `http://127.0.0.1:8000/admin/`
 
 ## 🛠 Development
-- Add models to core/models.py
-- Create views in core/views.py
-- Add URL patterns in core/urls.py
-- Create templates in core/templates/
+- Add models to library/models.py
+- Create views in library/views.py
+- Add URL patterns in library/urls.py
+- Create templates in library/templates/
 
 ## 👤 Autors
 - Baltazar LLique Franklin Anderson
