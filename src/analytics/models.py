@@ -21,3 +21,14 @@ class CategoryAnalytics(models.Model):
     
     def __str__(self):
         return f"Analytics for {self.category.name}"
+
+class AuthorAnalytics(models.Model):
+    """Model to store aggregated author analytics"""
+    author = models.OneToOneField(Author, on_delete=models.CASCADE, related_name='analytics')
+    total_views = models.PositiveIntegerField(default=0)
+    avg_rating = models.FloatField(default=0)
+    total_reviews = models.PositiveIntegerField(default=0)
+    last_updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Analytics for {self.author.name}"
