@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
 from .models import Author, Book, Category, Publisher
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
     """View for home page with library statistics"""
     context = {
@@ -18,11 +20,13 @@ def home(request):
     }
     return render(request, 'library/home.html', context)
 
+@login_required
 def author_list(request):
     """View for listing all authors"""
     authors = Author.objects.all().order_by('name')
     return render(request, 'library/author_list.html', {'authors': authors})
 
+@login_required
 def author_detail(request, pk):
     """View for author details with books"""
     author = get_object_or_404(Author, pk=pk)
@@ -30,11 +34,13 @@ def author_detail(request, pk):
     books = author.books.all()
     return render(request, 'library/author_detail.html', {'author': author, 'books': books})
 
+@login_required
 def book_list(request):
     """View for listing all books"""
     books = Book.objects.all().select_related('author').order_by('title')
     return render(request, 'library/book_list.html', {'books': books})
 
+@login_required
 def book_detail(request, pk):
     """View for book details"""
     book = get_object_or_404(Book, pk=pk)
@@ -50,11 +56,13 @@ def book_detail(request, pk):
     }
     return render(request, 'library/book_detail.html', context)
 
+@login_required
 def category_list(request):
     """View for listing all categories"""
     categories = Category.objects.annotate(book_count=Count('books')).order_by('name')
     return render(request, 'library/category_list.html', {'categories': categories})
 
+@login_required
 def category_detail(request, slug):
     """View for category details with books"""
     category = get_object_or_404(Category, slug=slug)
